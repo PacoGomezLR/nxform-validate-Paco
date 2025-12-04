@@ -5,17 +5,17 @@ import { z } from "zod";
 const schema = z.object({
     id: z.union([z.coerce.number(), z.string().nullish()]),
     nombre: z.string().trim()
-        .min(1, "Al menos debe tener una letra")
-        .max(5, "Como máximo debe haber 5 letras"),
+        .min(2, "Al menos debe tener dos letras")
+        .max(8, "Como máximo debe haber 8 letras"),
     edad: z.coerce.number()
-        .min(18, "La edad mínima debe ser 18 años")
-        .max(65, "La edad máxima debe ser 65 años"),
+        .min(16, "La edad mínima debe ser 16 años")
+        .max(60, "La edad máxima debe ser 60 años"),
     telefono: z.string().trim()
-        .regex(/[678]{1}[0-9]{8}/, "Escribe 9 dígitos, siendo el primero 6,7 u 8"),
+        .regex(/[621]{1}[0-9]{8}/, "Escribe 9 dígitos, siendo el primero 6,2 o 1"),
     email: z.string().email({ message: "Email no válido" }),
     fecha: z.coerce.date()
-        .min(new Date("2024-01-01"), "La fecha debe estar dentro del año 2024")
-        .max(new Date("2024-12-31"), "La fecha debe estar dentro del año 2024"),
+        .min(new Date("2025-01-01"), "La fecha debe estar dentro del año 2025")
+        .max(new Date("2025-12-31"), "La fecha debe estar dentro del año 2025"),
     comentario: z.string().optional()
 })
 
@@ -46,11 +46,11 @@ export async function realAction(prevState, formData) {
 
     // let issues = {}
 
-    // if (nombre.length < 1 || nombre.length > 5)
+    // if (nombre.length < 2 || nombre.length > 8)
     //     issues.nombre = "Introduzca nombre entre 1 y 5 letras"
 
-    // if (edad < 18 || edad > 65)
-    //     issues.edad = "Introduzca edade entre 18 y 65 años"
+    // if (edad < 16 || edad > 60)
+    //     issues.edad = "Introduzca edade entre 16 y 60 años"
 
     const result = validate(formData)
     if (!result.success) {
